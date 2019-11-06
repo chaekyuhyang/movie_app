@@ -2,8 +2,6 @@ import React from 'react';
 import axios from "axios";
 import PropTypes from "prop-types";
 import Movie from "./Movie";
-import "./Movie.css";
-import "./App.css";
 
 class App extends React.Component{
   
@@ -42,32 +40,21 @@ class App extends React.Component{
   // react는 자동으로 class component의 render() 를 실행한다
   render(){
     const { isLoading, movies } = this.state;
-    return (  // class 대신 className이라고 써주는 이유 : DOM property class ... JSX 때문.. HTML처럼보이지만 JSX 
-              // react가 혼란스러워함 javascript class 안에 있으면 componet class에 의해 혼란스러워지기 때문에
-              // 비슷한 예로 <label for= > 의 경우 for이라는 키워드가 javascript에 있기 때문에 htmlFor로 써줘야 한다
-      <section className="container">  
-         {isLoading ? (
-            <div className="loder">
-              <span className="loder__text">loading</span>
-            </div> 
-        ) : (
-          <div className="movies"> 
-            {movies.map(movie => (
-              <Movie 
-                  key={movie.id}
-                  id={movie.id} 
-                  year={movie.year} 
-                  title={movie.title} 
-                  summary={movie.summary} 
-                  poster={movie.medium_cover_image}
-                  genres={movie.genres}
-                />
-            ))}
-          </div>
-        )}
-      </section>
-    );
+    return <div> {isLoading ? "Loading..." : movies.map(movie => {
+      return (
+        <Movie 
+           key={movie.id}
+           id={movie.id} 
+           year={movie.year} 
+           title={movie.title} 
+           summary={movie.summary} 
+           poster={movie.medium_cover_image} 
+        />
+       );  
+     })}
+    </div>  
   }
+
 }
 
 export default App;
